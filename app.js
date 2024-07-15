@@ -10,10 +10,7 @@ const cors=require("cors")
 dotenv.config();
 //middleware
  /*app.use(cors()); */  //pour donner lautorisation pour tous les port
-app.use(cors({
-    origin: "http://localhost:3006"
-
-}))
+app.use(cors({}))
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("bienvenue dans notre site web ")
