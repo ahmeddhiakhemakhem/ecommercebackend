@@ -3,13 +3,24 @@ const article = require("../models/article");
 const categorie = require('../models/categorie');
 const router = express.Router();
 router.post("/", async (req, res) => {
-    const art= new Article(req.body)
+    const art= new article(req.body)
     try {
         await art.save();
         res.status(200).json(art);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+})
+router.get('/art/pagination',async(req,res)=>{
+    const filter=req.query.filter||"";
+    const page=parseInt(req.query.page);
+    const pageSize=parseInt(req.query.pageSize);
+    const startIndex=(page-1)*pageSize;
+    const endIndex=startIndex+pageSize;
+    const articles=await article.find().populate("scategorieID").exec()
+    const paginationProducts=articles.slice(startIndex, endIndex)
+    const totalPages=Math.ceil(articles.length / pageSize)
+    res.json({products:paginationProducts,totalPages});
 })
 router.get('/',async(req,res)=>{
     try{
