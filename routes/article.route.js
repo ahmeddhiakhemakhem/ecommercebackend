@@ -12,12 +12,12 @@ router.post("/", async (req, res) => {
     }
 })
 router.get('/art/pagination',async(req,res)=>{
-    const filter=req.query.filter||"";
+    const filter=req.query.filter||""; //search
     const page=parseInt(req.query.page);
     const pageSize=parseInt(req.query.pageSize);
     const startIndex=(page-1)*pageSize;
     const endIndex=startIndex+pageSize;
-    const articles=await article.find().populate("scategorieID").exec()
+    const articles=await article.find({designation:{$regex:filter,$options:"i"}},null,{sort:{'_id':-1}}).populate("scategorieID").exec()
     const paginationProducts=articles.slice(startIndex, endIndex)
     const totalPages=Math.ceil(articles.length / pageSize)
     res.json({products:paginationProducts,totalPages});
