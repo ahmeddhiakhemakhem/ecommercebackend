@@ -6,6 +6,8 @@ const mongoose=require("mongoose");
 const categorieRouter=require("./routes/categorie.route");
 const scategorieRouter = require("./routes/scategorie.route");
 const articleRouter = require("./routes/article.route");
+const paymentRouter =require("./routes/payment.route.js");
+app.use('/api/payment', paymentRouter);
 const cors=require("cors")
 dotenv.config();
 //middleware
