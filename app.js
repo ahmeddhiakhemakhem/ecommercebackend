@@ -7,6 +7,7 @@ const categorieRouter=require("./routes/categorie.route");
 const scategorieRouter = require("./routes/scategorie.route");
 const articleRouter = require("./routes/article.route");
 const paymentRouter =require("./routes/payment.route.js");
+const userRouter =require("./routes/user.route.js");
 app.use('/api/payment', paymentRouter);
 const cors=require("cors")
 dotenv.config();
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use("/api/categories",categorieRouter)
 app.use("/api/scategories",scategorieRouter)
 app.use("/api/articles",articleRouter)
+app.use("/api/users",userRouter)
 
 app.listen(process.env.PORT)
 console.log("application run at port "+process.env.PORT);
